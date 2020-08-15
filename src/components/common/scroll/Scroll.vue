@@ -42,14 +42,17 @@ export default {
     }
     // 监听上拉事件
     if (this.pullUpLoad) {
-      this.scroll.on("pullUpLoad", () => {
-        this.$emit("pullUpLoad");
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
       });
     }
   },
   methods: {
     refresh() {
       this.scroll && this.scroll.refresh();
+    },
+    finishPullUp() {
+      this.scroll && this.scroll.finishPullUp();
     },
   },
 };

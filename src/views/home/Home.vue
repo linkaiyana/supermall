@@ -4,7 +4,14 @@
       <div slot="center">购物街</div>
     </nav-bar>
     <tab-control class="control" ref="tbc" :titles="titles" @tabClick="tabClick" v-show="isFixed" />
-    <scroll class="scroll" ref="scroll" :probeType="3" @scroll="listenScroll">
+    <scroll
+      class="scroll"
+      ref="scroll"
+      :probeType="3"
+      @scroll="listenScroll"
+      :pullUpLoad="true"
+      @pullingUp="loadMore"
+    >
       <home-swiper :banner="banner" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommend="recommend"></recommend-view>
       <feature-view></feature-view>
@@ -77,6 +84,7 @@ export default {
       getHomeGoods(currentType, page).then((res) => {
         this.goods[currentType].list.push(...res.data.list);
         this.goods[currentType].page = page;
+        this.$refs.scroll.finishPullUp();
       });
     },
 
@@ -106,6 +114,9 @@ export default {
     listenScroll(position) {
       this.isFixed = position.y <= -this.tabControlTop;
     },
+    loadMore() {
+      this.getHomeGoods(this.currentType);
+    },
   },
   created() {
     // 请求多个数据
@@ -120,7 +131,6 @@ export default {
     // 由于商品图片可能有多张，导致这个事件会被频繁调用，所以有时候为了性能，会使用防抖函数进行处理
 
     // 使用防抖函数
-
     const refresh = debounce(this.$refs.scroll.refresh, 50);
     this.$bus.$on("goodsImageLoad", () => {
       refresh();

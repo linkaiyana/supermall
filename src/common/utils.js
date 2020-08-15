@@ -4,7 +4,6 @@ export function debounce(func, delay) {
     if (timmer) clearTimeout(timmer);
     timmer = setTimeout(() => {
       func.apply(this, args);
-      console.log('----');
     }, delay);
   }
 }
