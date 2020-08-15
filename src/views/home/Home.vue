@@ -54,6 +54,7 @@ export default {
       },
       currentType: "pop",
       tabControlTop: 0,
+      positionY: 0,
     };
   },
   computed: {
@@ -124,7 +125,7 @@ export default {
 
     // 回到顶部
     toTop() {
-      this.$refs.scroll.scroll.scrollTo(0, 0, 500);
+      this.$refs.scroll.scrollTo(0, 0, 500);
     },
 
     // 上拉加载更多
@@ -149,6 +150,13 @@ export default {
     this.$bus.$on("goodsImageLoad", () => {
       refresh();
     });
+  },
+  // 保持页面状态
+  activated() {
+    this.$refs.scroll.scrollTo(0, this.positionY, 0);
+  },
+  deactivated() {
+    this.positionY = this.$refs.scroll.getScrollY();
   },
 };
 </script>

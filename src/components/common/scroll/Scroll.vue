@@ -54,6 +54,12 @@ export default {
     finishPullUp() {
       this.scroll && this.scroll.finishPullUp();
     },
+    scrollTo(x, y, time) {
+      this.scroll && this.scroll.scrollTo(x, y, time);
+    },
+    getScrollY() {
+      return this.scroll ? this.scroll.y : 0;
+    },
   },
 };
 </script>

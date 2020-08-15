@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <tab-bar>
       <tab-bar-item path="/home" activeColor="white">
         <img slot="imgA" src="~assets/img/tabbar/home.svg" />
