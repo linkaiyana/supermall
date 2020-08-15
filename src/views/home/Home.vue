@@ -18,6 +18,7 @@
       <tab-control ref="tabControl" :titles="titles" @tabClick="tabClick" />
       <good-list :goods="showGoods"></good-list>
     </scroll>
+    <back-top v-show="isShowBackTop" @click.native="toTop"></back-top>
   </div>
 </template>
 
@@ -27,6 +28,7 @@ import { debounce } from "common/utils";
 import NavBar from "components/common/navbar/NavBar";
 import { Swiper, SwiperItem } from "components/common/swiper";
 import Scroll from "components/common/scroll/Scroll";
+import BackTop from "components/common/backtop/BackTop";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodList from "components/content/goods/GoodList";
 
@@ -44,6 +46,7 @@ export default {
       recommend: [],
       titles: ["流行", "精品", "新款"],
       isFixed: false,
+      isShowBackTop: false,
       goods: {
         pop: { page: 0, list: [] },
         sell: { page: 0, list: [] },
@@ -68,6 +71,7 @@ export default {
     TabControl,
     GoodList,
     Scroll,
+    BackTop,
   },
   methods: {
     // 获取轮播图、推荐数据
@@ -112,8 +116,18 @@ export default {
     },
     // 监听滚动
     listenScroll(position) {
+      // 控制tabControl是否显示
       this.isFixed = position.y <= -this.tabControlTop;
+      // 控制回到顶部按钮是否显示
+      this.isShowBackTop = position.y <= -1000;
     },
+
+    // 回到顶部
+    toTop() {
+      this.$refs.scroll.scroll.scrollTo(0, 0, 500);
+    },
+
+    // 上拉加载更多
     loadMore() {
       this.getHomeGoods(this.currentType);
     },
