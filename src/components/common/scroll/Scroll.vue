@@ -47,6 +47,11 @@ export default {
       });
     }
   },
+  methods: {
+    refresh() {
+      this.scroll && this.scroll.refresh();
+    },
+  },
 };
 </script>
 

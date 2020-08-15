@@ -3,7 +3,7 @@
     <nav-bar class="nav-bar">
       <div slot="center">购物街</div>
     </nav-bar>
-    <tab-control class="control" :titles="titles" @tabClick="tabClick" v-show="isFixed" />
+    <tab-control class="control" ref="tbc" :titles="titles" @tabClick="tabClick" v-show="isFixed" />
     <scroll class="scroll" ref="scroll" :probeType="3" @scroll="listenScroll">
       <home-swiper :banner="banner" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommend="recommend"></recommend-view>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { debounce } from "common/utils";
+
 import NavBar from "components/common/navbar/NavBar";
 import { Swiper, SwiperItem } from "components/common/swiper";
 import Scroll from "components/common/scroll/Scroll";
@@ -97,11 +99,12 @@ export default {
           this.currentType = "new";
           break;
       }
+      this.$refs.tbc.currentIndex = index;
+      this.$refs.tabControl.currentIndex = index;
     },
     // 监听滚动
     listenScroll(position) {
       this.isFixed = position.y <= -this.tabControlTop;
-      console.log(this.isFixed);
     },
   },
   created() {
@@ -111,6 +114,17 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("sell");
     this.getHomeGoods("new");
+  },
+  mounted() {
+    // 监听商品图片加载完成
+    // 由于商品图片可能有多张，导致这个事件会被频繁调用，所以有时候为了性能，会使用防抖函数进行处理
+
+    // 使用防抖函数
+
+    const refresh = debounce(this.$refs.scroll.refresh, 50);
+    this.$bus.$on("goodsImageLoad", () => {
+      refresh();
+    });
   },
 };
 </script>
