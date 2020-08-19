@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "shopcart",
+  name: "ShopCart",
 };
 </script>
 

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
     <tab-bar>
       <tab-bar-item path="/home" activeColor="white">
         <img slot="imgA" src="~assets/img/tabbar/home.svg" />
@@ -32,7 +29,7 @@
 import TabBar from "components/common/tabbar/TabBar";
 import TabBarItem from "components/common/tabbar/TabBarItem";
 export default {
-  name: "maintabbar",
+  name: "MainTabBar",
   components: {
     TabBar,
     TabBarItem,

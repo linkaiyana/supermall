@@ -24,9 +24,9 @@
 
 <script>
 import { debounce } from "common/utils";
+import { imageLoadListener, backTopListener } from "common/mixin";
 
 import NavBar from "components/common/navbar/NavBar";
-import { Swiper, SwiperItem } from "components/common/swiper";
 import Scroll from "components/common/scroll/Scroll";
 import BackTop from "components/common/backtop/BackTop";
 import TabControl from "components/content/tabControl/TabControl";
@@ -39,14 +39,13 @@ import RecommendView from "./childComp/RecommendView";
 import FeatureView from "./childComp/FeatureView";
 
 export default {
-  name: "home",
+  name: "Home",
   data() {
     return {
       banner: [],
       recommend: [],
       titles: ["流行", "精品", "新款"],
       isFixed: false,
-      isShowBackTop: false,
       goods: {
         pop: { page: 0, list: [] },
         sell: { page: 0, list: [] },
@@ -55,8 +54,10 @@ export default {
       currentType: "pop",
       tabControlTop: 0,
       positionY: 0,
+      imageLoadListener: null,
     };
   },
+  mixins: [imageLoadListener, backTopListener],
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
@@ -64,8 +65,6 @@ export default {
   },
   components: {
     NavBar,
-    Swiper,
-    SwiperItem,
     HomeSwiper,
     RecommendView,
     FeatureView,
@@ -120,12 +119,7 @@ export default {
       // 控制tabControl是否显示
       this.isFixed = position.y <= -this.tabControlTop;
       // 控制回到顶部按钮是否显示
-      this.isShowBackTop = position.y <= -1000;
-    },
-
-    // 回到顶部
-    toTop() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
+      this.topListen(position);
     },
 
     // 上拉加载更多
@@ -144,19 +138,16 @@ export default {
   mounted() {
     // 监听商品图片加载完成
     // 由于商品图片可能有多张，导致这个事件会被频繁调用，所以有时候为了性能，会使用防抖函数进行处理
-
     // 使用防抖函数
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
-    this.$bus.$on("goodsImageLoad", () => {
-      refresh();
-    });
   },
   // 保持页面状态
   activated() {
+    this.$refs.scroll.refresh();
     this.$refs.scroll.scrollTo(0, this.positionY, 0);
   },
   deactivated() {
     this.positionY = this.$refs.scroll.getScrollY();
+    this.$bus.$off("goodsImageLoad", this.imageLoadListener);
   },
 };
 </script>

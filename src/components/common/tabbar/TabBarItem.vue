@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "tabaritem",
+  name: "TabarItem",
   props: {
     path: String,
     activeColor: {

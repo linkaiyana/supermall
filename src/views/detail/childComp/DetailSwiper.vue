@@ -1,29 +1,26 @@
 <template>
-  <swiper>
-    <swiper-item v-for="item in banner" :key="item.acm">
-      <a :href="item.link">
-        <img :src="item.image" @load="imageLoad" />
-      </a>
+  <swiper class="detail-swiper">
+    <swiper-item v-for="item in banners" :key="item.index">
+      <img :src="item" alt @load="imgLoad" />
     </swiper-item>
   </swiper>
 </template>
 
 <script>
 import { Swiper, SwiperItem } from "components/common/swiper";
-
 export default {
-  name: "HomeSwiper",
+  name: "DetailSwiper",
   components: {
     Swiper,
     SwiperItem,
   },
   data() {
     return {
-      isLoad: false,
+      isEmit: false,
     };
   },
   props: {
-    banner: {
+    banners: {
       type: Array,
       default() {
         return [];
@@ -31,11 +28,10 @@ export default {
     },
   },
   methods: {
-    imageLoad() {
-      // 简单处理只发出一次事件
-      if (!this.isLoad) {
-        this.$emit("swiperImageLoad");
-        this.isLoad = true;
+    imgLoad() {
+      if (!this.isEmit) {
+        this.isEmit = true;
+        this.$emit("imgLoad");
       }
     },
   },
@@ -43,4 +39,7 @@ export default {
 </script>
 
 <style scoped>
+.detail-swiper {
+  height: 300px;
+}
 </style>

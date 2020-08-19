@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "tabControl",
+  name: "TabControl",
   data() {
     return {
       currentIndex: 0,
