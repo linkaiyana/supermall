@@ -86,6 +86,7 @@ export default {
           data.columns,
           data.shopInfo.services
         );
+        console.log(this.goodsInfo);
 
         // 获取商店基本信息
         this.shopInfo = new ShopInfo(data.shopInfo);
@@ -133,8 +134,19 @@ export default {
     },
     // 监听加入购物车按钮点击
     addClick() {
-      console.log(111);
+      console.log(this.detailInfo);
+      const product = {};
+      product.image = this.banners[0];
+      product.title = this.goodsInfo.title;
+      product.price = this.goodsInfo.lowPrice;
+      product.desc = this.detailInfo.desc;
+      product.ischeck = true;
+      product.iid = this.iid;
+      this.$store.dispatch("addToCart", product).then((res) => {
+        this.$toast.show(res);
+      });
     },
+    // 加入购物车
   },
   created() {
     // 请求数据
