@@ -8,7 +8,7 @@
         <slot name="imgB"></slot>
       </div>
     </div>
-    <div :style="isActive ? {color: activeColor} : {}">
+    <div :style="isActive ? { color: activeColor } : {}">
       <slot></slot>
     </div>
   </div>

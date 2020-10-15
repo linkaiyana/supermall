@@ -5,7 +5,7 @@
       <span>全选</span>
     </div>
     <div class="price">{{getTotalPrice}}</div>
-    <div class="toCalc">去计算({{getToClacNum}})</div>
+    <div class="toCalc" @click="toCalc">去计算({{getToClacNum}})</div>
   </div>
 </template>
 
@@ -47,6 +47,11 @@ export default {
         this.$store.commit(ALL_NOT_CHECKED);
       } else {
         this.$store.commit(ALL_CHECKED);
+      }
+    },
+    toCalc() {
+      if (this.getToClacNum == 0) {
+        this.$toast.show("请选择你要购买的商品");
       }
     },
   },

@@ -6,7 +6,6 @@ export default {
   },
   [type.ADD_NEW](state, product) {
     state.products.push(product);
-    console.log(state.products);
   },
   [type.REV_CHECK](state, payload) {
     payload.ischeck = !payload.ischeck;

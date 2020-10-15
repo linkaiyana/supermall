@@ -32,9 +32,9 @@ export default {
   transform: translate(-50%, -50%);
   z-index: 9999;
   color: #fff;
-  font-size: 18px;
+  font-size: 14px;
   background-color: rgba(0, 0, 0, 0.7);
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 5px;
 }
 </style>

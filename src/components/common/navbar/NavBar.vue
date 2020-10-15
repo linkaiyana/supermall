@@ -26,12 +26,12 @@ export default {
   line-height: 44px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-.left,
-.right {
+.nav-bar .left,
+.nav-bar .right {
   width: 60px;
   height: 44px;
 }
-.center {
+.nav-bar .center {
   flex: 1;
 }
 </style>
