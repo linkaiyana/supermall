@@ -77,6 +77,7 @@ export default {
     // 获取轮播图、推荐数据
     getHomeMultiData() {
       getHomeMultiData().then((res) => {
+        console.log(res);
         this.banner = res.data.banner.list;
         this.recommend = res.data.recommend.list;
       });
