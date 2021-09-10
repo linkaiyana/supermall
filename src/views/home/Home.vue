@@ -44,7 +44,7 @@ export default {
     return {
       banner: [],
       recommend: [],
-      titles: ["流行", "精品", "新款"],
+      titles: ["流行", "精品", "新款2"],
       isFixed: false,
       goods: {
         pop: { page: 0, list: [] },
