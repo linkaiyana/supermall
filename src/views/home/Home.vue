@@ -44,7 +44,11 @@ export default {
     return {
       banner: [],
       recommend: [],
+<<<<<<< HEAD
       titles: ["流行", "精品", "新款2"],
+=======
+      titles: ["流行", "精品", "新款1"],
+>>>>>>> test
       isFixed: false,
       goods: {
         pop: { page: 0, list: [] },
@@ -77,6 +81,7 @@ export default {
     // 获取轮播图、推荐数据
     getHomeMultiData() {
       getHomeMultiData().then((res) => {
+        console.log(res);
         this.banner = res.data.banner.list;
         this.recommend = res.data.recommend.list;
       });
